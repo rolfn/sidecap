@@ -2,6 +2,11 @@
 .SUFFIXES : .tex .dtx .dvi .ps .pdf .sty .cls
 
 MAIN = sidecap
+DIST_DIR = $(MAIN)
+DIST_FILES = README.md $(MAIN).ins $(MAIN).dtx $(MAIN).pdf sc-test?.tex \
+	scraggeddemo.tex
+VERSION = $(shell awk '/ProvidesPackage/{print $$2}' $(MAIN).dtx)#             
+ARCHNAME = $(MAIN)-$(VERSION).zip
 
 ifneq ($(findstring pdf,$(MAKECMDGOALS)),)
   LATEX = pdflatex
@@ -9,7 +14,7 @@ else
   LATEX = latex 
 endif
 
-all : $(MAIN).dvi $(MAIN).ps demo
+all : $(MAIN).pdf demo
 
 pdf : $(MAIN).pdf 
 
@@ -34,11 +39,16 @@ $(MAIN).dvi $(MAIN).pdf : $(MAIN).dtx $(MAIN).gls $(MAIN).ind
 $(MAIN).sty : $(MAIN).dtx
 	tex $*.ins   
 	
-demo : scraggeddemo.ps
+demo : scraggeddemo.pdf
 
-scraggeddemo.ps : scraggeddemo.dvi 
-
-scraggeddemo.dvi : scraggeddemo.tex $(MAIN).sty
+scraggeddemo.pdf : scraggeddemo.tex $(MAIN).sty
         		
 arch : 
 	zip $(MAIN).zip Makefile $(MAIN).dtx $(MAIN).ins
+
+dist : $(DIST_FILES)
+	mkdir -p $(DIST_DIR)
+	cp -p $+ $(DIST_DIR)
+	zip $(ARCHNAME) -r $(DIST_DIR)
+	rm -rf $(DIST_DIR)
+	
