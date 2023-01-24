@@ -8,7 +8,7 @@ knows the options outercaption, innercaption, leftcaption and rightcaption.
 
 Please send enhancements and corrections to: 
 
-                          Rolf Niepraschk, Rolf.Niepraschk@ptb.de
-			  Hubert Gaesslein,
-			  
-			  2003/05/04
+Rolf Niepraschk, Rolf.Niepraschk@ptb.de
+Hubert Gaesslein,
+
+2003/05/04
