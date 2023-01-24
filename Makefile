@@ -31,9 +31,17 @@ pdf : $(MAIN).pdf
 	makeindex -s gglo.ist -t $(basename $@).glg -o $@ $<	
 	
 %.ind : %.idx
-	makeindex -s gind.ist -t $(basename $@).ilg -o $@ $<	
-	
-$(MAIN).dvi $(MAIN).pdf : $(MAIN).dtx $(MAIN).gls $(MAIN).ind
+	makeindex -s gind.ist -t $(basename $@).ilg -o $@ $<
+
+$(MAIN).pdf : $(MAIN).dtx
+	$(LATEX) $<
+	if ! test -f $(basename $<).glo ; then touch $(basename $<).glo; fi
+	if ! test -f $(basename $<).idx ; then touch $(basename $<).idx; fi
+	makeindex -s gglo.ist -t $(basename $<).glg -o $(basename $<).gls \
+		$(basename $<).glo
+	makeindex -s gind.ist -t $(basename $<).ilg -o $(basename $<).ind \
+		$(basename $<).idx
+	$(LATEX) $<
 	$(LATEX) $<
         
 $(MAIN).sty : $(MAIN).dtx
@@ -42,7 +50,13 @@ $(MAIN).sty : $(MAIN).dtx
 demo : scraggeddemo.pdf
 
 scraggeddemo.pdf : scraggeddemo.tex $(MAIN).sty
-        		
+
+clean :
+	$(RM) *.aux *.log *.glg *.glo *.gls *.idx *.ilg *.ind *.toc *.lof 
+
+veryclean : clean
+	$(RM) $(MAIN).pdf $(MAIN).cls $(ARCHNAME)
+
 arch : 
 	zip $(MAIN).zip Makefile $(MAIN).dtx $(MAIN).ins
 

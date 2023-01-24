@@ -27,7 +27,7 @@
 % This work has the LPPL maintenance status "author-maintained".
 % \fi
 %
-% \CheckSum{686}
+% \CheckSum{683}
 %
 % \CharacterTable
 % {Upper-case   \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
@@ -45,23 +45,6 @@
 %  Grave accent  \`  Left brace    \{     Vertical bar  \|
 %  Right brace   \}  Tilde        \~}
 %
-% \iffalse meta-comment
-% ===================================================================
-%  @LaTeX-package-file{
-%     author        = {Rolf Niepraschk, Hubert G\"{a}\ss{}lein}
-%     version        = "1.6e",
-%     date        = "04 May 2003",
-%     filename        = "sidecap.sty",
-%     email        = "niepraschk@ptb.de (INTERNET)",
-%     codetable       = "ISO/ASCII",
-%     keywords        = "LaTeX2e, sideways caption, \SCfigure, \SCtable",
-%     supported       = "yes",
-%     docstring       = "LaTeX package which defines new environments
-%       for easy typesetting sideways captions and
-%       wide floats".
-%  }
-% ===================================================================
-% \fi
 %
 %  \MakeShortVerb{\|}
 %  \setlength\parindent{0pt}
@@ -433,9 +416,9 @@
 %    More simple code for hyperref compatibilty (\cmd\hypergetpageref).}
 %  \changes{v1.6f (RN/HjG)}{2003/06/06}{Test for presence of package babel
 %    (\cmd\org@pageref).}
-%    \begin{macrocode}
 %  \changes{v1.7a (RN)}{2023/01/24}{%
 %    Special handling with \cmd\SC@pageref is no longer necessary.}  
+%    \begin{macrocode}
 \AtBeginDocument{%
   \ifSC@origRagged\else
     \@ifpackageloaded{ragged2e}{}%
